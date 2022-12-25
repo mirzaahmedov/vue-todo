@@ -1,0 +1,52 @@
+*::before,
+*,
+*::after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+
+input,
+button,
+textarea,
+select {
+  appearance: none;
+  font: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+:root {
+  --bg: #f5f5f5;
+  --bg-alt: #fafafa;
+  --bg-highlight: #f3f3f3;
+  --text: #455a64;
+  --text-alt: #607d8b;
+  --divider: #cfd8dc;
+  --shadow-sm: 0px 3px 8px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0px 5px 11px rgba(0, 0, 0, 0.08);
+  --animation-speed: 0.2s;
+}
+
+html {
+  font-size: 16px;
+  font-family: "Inter", sans-serif;
+}
+
+body {
+  color: var(--text);
+  background-color: var(--bg);
+}

@@ -3,14 +3,17 @@ import type { TTodo } from "./types/todo";
 
 import Todos from "./components/Todos.vue";
 import CreateTodo from "./components/CreateTodo.vue";
+import Modal from "./components/Modal.vue";
 
 type TState = {
+  selected: null | TTodo;
   todos: TTodo[];
 };
 
 export default {
   data(): TState {
     return {
+      selected: null,
       todos: [
         {
           id: 1,
@@ -29,9 +32,26 @@ export default {
       ],
     };
   },
+  methods: {
+    handleSelectTodo(todo: TTodo) {
+      this.selected = todo;
+    },
+    handleCreateTodo(todo: TTodo) {
+      this.todos = [...this.todos, todo];
+    },
+    handleToggleTodo(id: number) {
+      const found = this.todos.findIndex((todo) => todo.id === id);
+      this.todos = [
+        ...this.todos.slice(0, found),
+        { ...this.todos[found], done: !this.todos[found].done },
+        ...this.todos.slice(found + 1),
+      ];
+    },
+  },
   components: {
     Todos,
     CreateTodo,
+    Modal,
   },
 };
 </script>
@@ -43,8 +63,13 @@ export default {
     </h1>
   </header>
   <main>
-    <CreateTodo />
-    <Todos :todos="todos" />
+    <CreateTodo @onsubmit="handleCreateTodo" />
+    <Todos
+      @select-todo="handleSelectTodo"
+      @toggle-todo="handleToggleTodo"
+      :todos="todos"
+    />
+    <Modal :todo="selected" @close-modal="selected = null" />
   </main>
 </template>
 

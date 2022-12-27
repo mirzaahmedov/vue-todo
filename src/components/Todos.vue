@@ -17,7 +17,13 @@ export default {
 
 <template>
   <div class="todos">
-    <Todo v-for="todo in todos" :key="todo.id" :todo="todo" />
+    <Todo
+      v-for="todo in todos"
+      :key="todo.id"
+      :todo="todo"
+      @toggle="$emit('toggle-todo', todo.id)"
+      @select="$emit('select-todo', todo)"
+    />
   </div>
 </template>
 

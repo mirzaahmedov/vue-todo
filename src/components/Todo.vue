@@ -7,14 +7,30 @@ defineProps<{
 </script>
 
 <template>
-  <div class="todo">
-    <h6 class="name">{{ todo.name }}</h6>
-    <p class="created-date">{{ new Date(todo.date).toLocaleString() }}</p>
+  <div
+    @contextmenu.prevent="$emit('select', todo)"
+    @click="$emit('toggle', todo.id)"
+    class="todo"
+  >
+    <div class="todo-info">
+      <h6 class="name">{{ todo.name }}</h6>
+      <p class="created-date">{{ new Date(todo.date).toLocaleString() }}</p>
+    </div>
+    <font-awesome-icon
+      class="todo-done"
+      :style="{
+        color: todo.done ? 'var(--text)' : 'var(--divider)',
+      }"
+      icon="circle-check"
+    ></font-awesome-icon>
   </div>
 </template>
 
 <style scoped>
 .todo {
+  position: relative;
+  display: flex;
+  align-items: center;
   padding: 20px;
   border-radius: 10px;
   cursor: pointer;
@@ -22,6 +38,10 @@ defineProps<{
 }
 .todo:hover {
   box-shadow: var(--shadow-md);
+}
+
+.todo-info {
+  flex: 1;
 }
 
 .todo .name {
@@ -37,8 +57,14 @@ defineProps<{
 .todo:not(:last-child)::after {
   content: "";
   display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
   width: 100%;
-  transform: translateY(20px);
   border-bottom: 1px solid var(--bg-highlight);
+}
+
+.todo-done {
+  margin-left: auto;
 }
 </style>

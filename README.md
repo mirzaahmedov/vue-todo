@@ -38,3 +38,18 @@ npm run dev
 ```sh
 npm run build
 ```
+```javascript
+function validParentheses(parens){
+    let stack = []
+    
+    for(let i = 0; i < parens.length; i += 1){
+        if(parens[i] === "(") stack.push(parens[i])
+        else {
+            if(stack[stack.length - 1] !== "(") return false
+            stack.pop()
+        }
+    }
+
+    return stack.length === 0
+}
+```
